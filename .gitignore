@@ -31,3 +31,6 @@ build/
 # Archivos temporales
 *.tmp
 .cache/
+
+# Documentación local
+ROADMAP.md
