@@ -1,4 +1,4 @@
-// Importo mongoose desde el paquete "mongoose" - es un ODM para trabajar con MongoDB
+// Importo mongoose desde el paquete "mongoose" - es como un traductor que convierte objetos JavaScript en documentos de MongoDB y viceversa.
 import mongoose from "mongoose";
 // Importo MONGODB_URI desde config.js - contiene la URL de conexión a MongoDB Atlas
 import { MONGODB_URI } from "./config.js";
