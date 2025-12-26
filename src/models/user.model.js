@@ -22,6 +22,9 @@ const userSchema = new mongoose.Schema({
     type: String, // El tipo de dato es texto
     required: true, // Es obligatorio - no puedo crear un usuario sin password
   },
+}, 
+{
+  timestamps: true
 });
 
 // Exporto el modelo "User" basado en el esquema userSchema
