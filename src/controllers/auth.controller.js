@@ -1,5 +1,9 @@
 // importo el modelo de usuario que cree en user.model.js
 import User from "../models/user.model.js";
+// modulo que permite encriptar la contraseña
+import bcrypt from "bcryptjs";
+import { createAccessToken } from "../libs/jwt.js";
+
 // exporto función de registro hacia auth.routes.js
 export const register = async (req, res) => {
   // el request body (son los datos que el usuario envia y esta en formato JSON => clave, valor)
@@ -8,15 +12,27 @@ export const register = async (req, res) => {
   const { email, password, username } = req.body;
 
   try {
+    const passwordHash = await bcrypt.hash(password, 10);
+
     const newUser = new User({
       username,
-      password,
+      password: passwordHash,
       email,
     });
 
     //una vez creado el usuario en el backend, lo tengo que guardar en la base de datos
     const userSaved = await newUser.save();
-    res.json(userSaved);
+    const token = await createAccessToken({id: userSaved._id});
+    res.cookie ("token", token);
+   
+    //ahora le digo que me devuelva solo los datos que necesito en el frontend
+    res.json({
+      id: userSaved._id,
+      username: userSaved.username,
+      email: userSaved.email,
+      createdAt: userSaved.createdAt,
+      updatedAt: userSaved.updatedAt,
+    });
   } catch (error) {
     console.log(error);
   }
