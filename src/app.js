@@ -18,7 +18,11 @@ const app = express();
 // "dev" es el formato que usa morgan (muestra: método, url, status, tiempo de respuesta)
 app.use(morgan("dev"));
 
-// le digo a la aplicación que utilice authRoutes
-app.use(authRoutes);
+
+// lo digo a app que utilice express con su metodo json para transformr los body en formato javascript
+app.use(express.json());
+
+// le digo a la aplicación utilice authRoutes y que todas las rutas del backend comiencen con /api
+app.use("/api", authRoutes);
 // exporto app para poder usarlo en index.js
 export default app;
