@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 // Defino el esquema (schema) del usuario - es como una plantilla que define la estructura
 // Este esquema le dice a MongoDB qué campos debe tener cada documento de usuario
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
   // Campo username: nombre de usuario
   username: {
     type: String, // El tipo de dato es texto (String)
@@ -28,4 +28,4 @@ const userSchema = mongoose.Schema({
 // El primer parámetro "user" es el nombre del modelo (MongoDB creará una colección llamada "users")
 // El segundo parámetro es el esquema que definí arriba
 // Este modelo lo importaré en los controllers para hacer operaciones CRUD (crear, leer, actualizar, eliminar)
-export default mongoose.model("user", userSchema);
+export default mongoose.model("User", userSchema);
