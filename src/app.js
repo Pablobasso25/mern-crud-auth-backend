@@ -10,6 +10,7 @@ import "dotenv/config";
 // indicando que se trata de las rutas relacionadas con la autenticación
 import authRoutes from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
+import taskRoutes from "./routes/tasks.routes.js";
 
 //ejecuto e inicializo express el cual me devuelve un objeto que lo guardo en una variable
 // app es el servidor
@@ -25,5 +26,7 @@ app.use(cookieParser());
 
 // le digo a la aplicación utilice authRoutes y que todas las rutas del backend comiencen con /api
 app.use("/api", authRoutes);
+app.use("/api", taskRoutes);
+
 // exporto app para poder usarlo en index.js
 export default app;
