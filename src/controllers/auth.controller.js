@@ -96,6 +96,24 @@ export const logout = (req, res) => {
   return res.sendStatus(200);
 };
 
+// exporto función de profile hacia auth.routes.js
+export const profile = async (req, res) => {
+  // busco al usuario en la DB usando el ID que viene del token verificado (req.user.id, agregado por authRequired middleware)
+  const userFound = await User.findById(req.user.id);
+  // si no encuentra el usuario (por algún error), responde con error 400
+  if (!userFound)
+    return res.status(400).json({ message: "Usuario no encontrado" });
+
+  // respondo con los datos del usuario (sin contraseña)
+  return res.json({
+    id: userFound._id,
+    username: userFound.username,
+    email: userFound.email,
+    createdAt: userFound.createdAt,
+    updatedAt: userFound.updatedAt,
+  });
+};
+
 /*
 Este archivo auth.controller.js maneja la lógica de negocio para las rutas de autenticación.
 Se lee paso a paso de la siguiente manera:
@@ -131,6 +149,12 @@ Se lee paso a paso de la siguiente manera:
    - Esto "cierra la sesión" eliminando el token del navegador.
    - Responde con status 200 (OK).
 
-Este controlador se importa en auth.routes.js y se asigna a las rutas POST /api/register, /api/login y /api/logout.
+5. **Función profile (asíncrona)**:
+   - Usa req.user.id (proporcionado por el middleware authRequired) para buscar al usuario en la DB.
+   - Si no encuentra el usuario, responde con error 400.
+   - Responde con los datos del usuario en JSON (sin contraseña).
+   - Esta ruta está protegida y requiere un token válido.
+
+Este controlador se importa en auth.routes.js y se asigna a las rutas POST /api/register, /api/login, POST /api/logout y GET /api/profile.
 Las cookies sirven para mantener la autenticación del usuario en el frontend sin necesidad de almacenar el token manualmente en localStorage.
 */

@@ -9,6 +9,7 @@ import "dotenv/config";
 // Se importa como authRoutes en lugar de router para mayor claridad y descriptividad,
 // indicando que se trata de las rutas relacionadas con la autenticación
 import authRoutes from "./routes/auth.routes.js";
+import cookieParser from "cookie-parser";
 
 //ejecuto e inicializo express el cual me devuelve un objeto que lo guardo en una variable
 // app es el servidor
@@ -18,9 +19,9 @@ const app = express();
 // "dev" es el formato que usa morgan (muestra: método, url, status, tiempo de respuesta)
 app.use(morgan("dev"));
 
-
 // lo digo a app que utilice express con su metodo json para transformr los body en formato javascript
 app.use(express.json());
+app.use(cookieParser());
 
 // le digo a la aplicación utilice authRoutes y que todas las rutas del backend comiencen con /api
 app.use("/api", authRoutes);
