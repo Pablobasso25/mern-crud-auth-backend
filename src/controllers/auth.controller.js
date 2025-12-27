@@ -55,15 +55,15 @@ export const login = async (req, res) => {
   try {
     // busco en la base de datos el usuario con su email
     const userFound = await User.findOne({ email });
-    //si no lo encuentra dispara un mensaje
+    // si no lo encuentra, responde con error 400 y mensaje
     if (!userFound)
       return res.status(400).json({ message: "Usuario no encontrado" });
-    // si lo encuentra compara la contraseña que ingresa con la que esta en la base de datos (devuelve true o false)
+    // si lo encuentra, compara la contraseña ingresada con la hasheada en la DB usando bcrypt.compare (devuelve true o false)
     const isMatch = await bcrypt.compare(password, userFound.password);
     if (!isMatch)
       return res.status(400).json({ message: "Contraseña incorrecta" });
 
-    // creo un token JWT con el ID del usuario encontrado (userFound)
+    // creo un token JWT con el ID del usuario encontrado
     const token = await createAccessToken({ id: userFound._id });
 
     // envío el token como cookie al cliente
@@ -80,9 +80,20 @@ export const login = async (req, res) => {
       updatedAt: userFound.updatedAt,
     });
   } catch (error) {
-    // si hay error (ej. email duplicado), respondo con status 500 y el mensaje de error
+    // si hay error, respondo con status 500 y el mensaje de error
     res.status(500).json({ message: error.message });
   }
+};
+
+// exporto función de logout hacia auth.routes.js
+export const logout = (req, res) => {
+  // borro la cookie del token configurándola con un valor vacío y expiración inmediata (fecha 0)
+  // esto "cierra la sesión" eliminando el token del navegador del usuario
+  res.cookie("token", "", {
+    expires: new Date(0),
+  });
+  // respondo con status 200 (OK) sin contenido
+  return res.sendStatus(200);
 };
 
 /*
@@ -91,7 +102,7 @@ Se lee paso a paso de la siguiente manera:
 
 1. **Imports**:
    - Importo el modelo User para crear y guardar usuarios en la DB.
-   - Importo bcrypt para hashear (encriptar) las contraseñas antes de guardarlas.
+   - Importo bcrypt para hashear (encriptar) las contraseñas antes de guardarlas y compararlas.
    - Importo createAccessToken para generar tokens JWT de autenticación.
 
 2. **Función register (asíncrona)**:
@@ -104,9 +115,22 @@ Se lee paso a paso de la siguiente manera:
    - Responde con un JSON que incluye los datos del usuario (id, username, email, timestamps), excluyendo la contraseña.
    - Si ocurre un error (ej. validación fallida), captura en catch y responde con error 500.
 
-3. **Función login**:
-   - Por ahora, es básica: solo responde con "login". (Pendiente implementar lógica de verificación de credenciales).
+3. **Función login (asíncrona)**:
+   - Extrae email y password del req.body.
+   - Busca al usuario en la DB por email usando User.findOne().
+   - Si no encuentra el usuario, responde con error 400 "Usuario no encontrado".
+   - Si lo encuentra, compara la contraseña ingresada con la hasheada en DB usando bcrypt.compare().
+   - Si la contraseña no coincide, responde con error 400 "Contraseña incorrecta".
+   - Si coincide, genera un token JWT con el ID del usuario.
+   - Envía el token como cookie al cliente.
+   - Responde con los datos del usuario en JSON.
+   - Maneja errores con try-catch.
 
-Este controlador se importa en auth.routes.js y se asigna a las rutas POST /api/register y /api/login.
+4. **Función logout**:
+   - Borra la cookie del token configurándola con valor vacío y expiración inmediata (new Date(0)).
+   - Esto "cierra la sesión" eliminando el token del navegador.
+   - Responde con status 200 (OK).
+
+Este controlador se importa en auth.routes.js y se asigna a las rutas POST /api/register, /api/login y /api/logout.
 Las cookies sirven para mantener la autenticación del usuario en el frontend sin necesidad de almacenar el token manualmente en localStorage.
 */
