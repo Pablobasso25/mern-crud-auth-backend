@@ -10,12 +10,17 @@ import "dotenv/config";
 // indicando que se trata de las rutas relacionadas con la autenticación
 import authRoutes from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import taskRoutes from "./routes/tasks.routes.js";
 
 //ejecuto e inicializo express el cual me devuelve un objeto que lo guardo en una variable
 // app es el servidor
 const app = express();
 
+app.use(cors({
+    origin: 'http://localhost:5173', // La URL del frontend
+    credentials: true
+}));
 // esta configuración muestra un mensaje corto por consola cada vez que se hace una petición HTTP
 // "dev" es el formato que usa morgan (muestra: método, url, status, tiempo de respuesta)
 app.use(morgan("dev"));
