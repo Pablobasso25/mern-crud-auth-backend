@@ -22,6 +22,7 @@ app.use(morgan("dev"));
 
 // lo digo a app que utilice express con su metodo json para transformr los body en formato javascript
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // le digo a la aplicación utilice authRoutes y que todas las rutas del backend comiencen con /api
