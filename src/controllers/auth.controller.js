@@ -12,6 +12,8 @@ export const register = async (req, res) => {
   const { email, password, username } = req.body;
 
   try {
+    const userFound = await User.findOne({ email });
+    if (userFound) return res.status(400).json(["Este email ya existe"]);
     // hasheo la contraseña con bcrypt para encriptarla antes de guardarla en la DB
     // bcrypt.hash(password, 10) genera un hash seguro con 10 rondas de salting
     const passwordHash = await bcrypt.hash(password, 10);
