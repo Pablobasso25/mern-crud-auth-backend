@@ -28,7 +28,7 @@ export const getTask = async (req, res) => {
   // Función asíncrona para obtener una tarea por ID.
   // req: Solicitud del cliente. req.params.id contiene el ID de la URL (ej: /api/tasks/123).
   // res: Respuesta al cliente.
-  const task = await Task.findById(req.params.id); // Busca en la DB la tarea con el ID especificado en la URL.
+  const task = await Task.findById(req.params.id).populate("user"); // Busca en la DB la tarea con el ID especificado en la URL.
   // findById() es un método de Mongoose que busca por _id (MongoDB).
   // await espera la consulta. Si encuentra, task es el objeto; si no, null.
   if (!task) return res.status(404).json({ message: "tarea no encontrada" }); // Si no se encontró la tarea (task es null/false),
@@ -48,5 +48,5 @@ export const updateTask = async (req, res) => {
 export const deteleTask = async (req, res) => {
   const task = await Task.findByIdAndDelete(req.params.id);
   if (!task) return res.status(404).json({ message: "tarea no encontrada" });
-  res.json(task);
+  return res.sendStatus(204);
 };
