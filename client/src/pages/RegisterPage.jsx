@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const RegisterPage = () => {
@@ -9,12 +9,15 @@ const RegisterPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  // Extraemos isAuthenticated y errors
   const { signup, isAuthenticated, errors: registerErrors } = useAuth();
   const navigate = useNavigate();
 
+  // Redirigir si ya está autenticado
   useEffect(() => {
-    if (isAuthenticated) navigate("/tasks");
-  }, [isAuthenticated]);
+    if (isAuthenticated) navigate("/tasks");  // revisar si pordria ser que una vez registrado lo envie al login y desde login a tasks 
+  }, [isAuthenticated, navigate]);
 
   const onSubmit = handleSubmit(async (values) => {
     signup(values);
@@ -23,9 +26,15 @@ const RegisterPage = () => {
   return (
     <div className="flex h-[calc(100vh-100px)] items-center justify-center">
       <div className="bg-zinc-800 max-w-md w-full p-10 rounded-md">
+        {/* Mostramos errores que vienen del servidor (Backend) */}
         {registerErrors.map((error, i) => (
-          <div className="bg-red-500 p-2 text-white">{error}</div>
+          <div className="bg-red-500 p-2 text-white text-center my-2" key={i}>
+            {error}
+          </div>
         ))}
+
+        <h1 className="text-2xl font-bold my-2 text-white">Registro</h1>
+
         <form onSubmit={onSubmit}>
           <input
             type="text"
@@ -36,6 +45,7 @@ const RegisterPage = () => {
           {errors.username && (
             <p className="text-red-500">El nombre de usuario es requerido</p>
           )}
+
           <input
             type="email"
             {...register("email", { required: true })}
@@ -45,6 +55,7 @@ const RegisterPage = () => {
           {errors.email && (
             <p className="text-red-500">El email es requerido</p>
           )}
+
           <input
             type="password"
             {...register("password", { required: true })}
@@ -54,11 +65,12 @@ const RegisterPage = () => {
           {errors.password && (
             <p className="text-red-500">La contraseña es requerida</p>
           )}
+
           <button
             type="submit"
-            className="bg-sky-500 px-4 py-2 rounded-md my-2 w-full"
+            className="bg-sky-500 text-white px-4 py-2 rounded-md my-4 w-full font-bold"
           >
-            Register
+            Registrarse
           </button>
         </form>
       </div>

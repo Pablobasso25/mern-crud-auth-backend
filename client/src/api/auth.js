@@ -4,6 +4,8 @@ const API = "http://localhost:4005/api";
 
 export const registerRequest = (user) => axios.post(`${API}/register`, user);
 
+export const loginRequest = (user) => axios.post(`${API}/login`, user);
+
 /* 
 export: Permite que puedas usar esta función en otros archivos (como en tu RegisterPage.jsx).
 
