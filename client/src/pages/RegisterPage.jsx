@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const RegisterPage = () => {
   const {
@@ -16,7 +17,7 @@ const RegisterPage = () => {
 
   // Redirigir si ya está autenticado
   useEffect(() => {
-    if (isAuthenticated) navigate("/tasks");  // revisar si pordria ser que una vez registrado lo envie al login y desde login a tasks 
+    if (isAuthenticated) navigate("/tasks"); // revisar si pordria ser que una vez registrado lo envie al login y desde login a tasks
   }, [isAuthenticated, navigate]);
 
   const onSubmit = handleSubmit(async (values) => {
@@ -73,6 +74,12 @@ const RegisterPage = () => {
             Registrarse
           </button>
         </form>
+        <p className="flex gap-x-2 justify-between">
+          ¿Ya tienes una cuenta ?
+          <Link to="/login" className="text-sky-500">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );

@@ -34,10 +34,12 @@ export const AuthProvider = ({ children }) => {
   const signup = async (user) => {
     try {
       const res = await registerRequest(user);
+      console.log(res.data);
       setUser(res.data);
       setIsAuthenticated(true);
       setErrors([]); // Limpiamos errores al tener éxito
     } catch (error) {
+      console.error(error);
       handleErrors(error); // Usamos la lógica segura
     }
   };
@@ -45,11 +47,13 @@ export const AuthProvider = ({ children }) => {
   const signin = async (user) => {
     try {
       const res = await loginRequest(user);
+      console.log(res);
       setUser(res.data);
       setIsAuthenticated(true);
       setErrors([]); // Limpiamos errores al tener éxito
     } catch (error) {
-      handleErrors(error); // Usamos la lógica segura
+      console.error(error.response.data);
+      handleErrors(error.response.data); // Usamos la lógica segura
     }
   };
 
