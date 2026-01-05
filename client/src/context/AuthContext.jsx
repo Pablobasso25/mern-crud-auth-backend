@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { registerRequest, loginRequest } from "../api/auth";
+import { registerRequest, loginRequest, verifyTokenRequest } from "../api/auth";
+import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
 
@@ -15,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   // Función unificada para manejar errores de Axios de forma segura
   const handleErrors = (error) => {
     if (error.response && error.response.data) {
@@ -48,8 +49,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await loginRequest(user);
       console.log(res);
-      setUser(res.data);
       setIsAuthenticated(true);
+      setUser(res.data);
       setErrors([]); // Limpiamos errores al tener éxito
     } catch (error) {
       console.error(error.response.data);
@@ -67,11 +68,48 @@ export const AuthProvider = ({ children }) => {
     }
   }, [errors]);
 
+  useEffect(() => {
+    async function checkLogin() {
+      const cookies = Cookies.get();
+
+      // 1. Si NO existe el token, el usuario no está logueado
+      if (!cookies.token) {
+        setIsAuthenticated(false);
+        setLoading(false);
+        setUser(null);
+        return;
+      }
+
+      // 2. Si existe el token, verificamos con el backend
+      try {
+        const res = await verifyTokenRequest(cookies.token);
+
+        if (!res.data) {
+          setIsAuthenticated(false);
+          setLoading(false);
+          return;
+        }
+
+        setIsAuthenticated(true);
+        setUser(res.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsAuthenticated(false);
+        setUser(null);
+        setLoading(false);
+      }
+    }
+
+    checkLogin(); // Llamamos a la función
+  }, []); // Se ejecuta una sola vez al cargar la app
+
   return (
     <AuthContext.Provider
       value={{
         signup,
         signin,
+        loading,
         user,
         isAuthenticated,
         errors,

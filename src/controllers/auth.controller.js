@@ -4,6 +4,8 @@ import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 // importo la función para crear tokens JWT desde libs/jwt.js
 import { createAccessToken } from "../libs/jwt.js";
+import jwt from "jsonwebtoken";
+import { TOKEN_SECRET } from "../config.js";
 
 // exporto función de registro hacia auth.routes.js
 export const register = async (req, res) => {
@@ -116,6 +118,24 @@ export const profile = async (req, res) => {
   });
 };
 
+export const verifyToken = async (req, res) => {
+  //extraer el token del usuario
+  const { token } = req.cookies;
+  //si no hay token devuelvo un mensaje de que no esta autorizado (quiere decir que no esta existe el usuario por lo tanto tiene que registrarse)
+  if (!token) return res.status(401).json({ message: "No autorizado" });
+  //si existe un token hay que validarlo
+  jwt.verify(token, TOKEN_SECRET, async (err, user) => {
+    if (err) return res.status(401).json({ message: "No autorizado" });
+    const userFound = await User.findById(user.id);
+    if (!userFound) return res.status(401).json({ message: "No autorizado" });
+
+    return res.json({
+      id: userFound._id,
+      username: userFound.username,
+      email: userFound.email,
+    });
+  });
+};
 /*
 Este archivo auth.controller.js maneja la lógica de negocio para las rutas de autenticación.
 Se lee paso a paso de la siguiente manera:
