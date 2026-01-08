@@ -4,10 +4,9 @@ import { useTasks } from "../context/TasksContext";
 const TaskFormPage = () => {
   const { register, handleSubmit } = useForm();
   const { createTask } = useTasks();
-  console.log(createTask());
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    createTask(data);
   });
 
   return (
@@ -15,15 +14,15 @@ const TaskFormPage = () => {
       <form onSubmit={onSubmit}>
         <input
           type="text"
-          placeholder="Título"
-          {...register("título")}
+          placeholder="Title"
+          {...register("title")}
           autoFocus
           className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
         />
         <textarea
           rows={3}
-          placeholder="Descripción"
-          {...register("descripción")}
+          placeholder="Description"
+          {...register("description")}
           className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
         ></textarea>
         <button>Guardar</button>
