@@ -1,4 +1,8 @@
+import { useTasks } from "../context/TasksContext";
+
 const TaskCard = ({ task }) => {
+  const { deleteTask } = useTasks();
+
   return (
     <div className="bg-zinc-800 max-w-md w-full p-10 rounded-md">
       <header className="flex justify-between">
@@ -11,7 +15,15 @@ const TaskCard = ({ task }) => {
           >
             Editar
           </button>
-          <button>Eliminar</button>
+          <button
+            onClick={() => {
+              {
+                deleteTask(task._id);
+              }
+            }}
+          >
+            Eliminar
+          </button>
         </div>
       </header>
       <p className="text-slate-300">{task.description}</p>
