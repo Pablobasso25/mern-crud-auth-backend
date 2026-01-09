@@ -5,7 +5,7 @@ import {
   getTasks,
   createTask,
   updateTask,
-  deteleTask,
+  deleteTask,
 } from "../controllers/tasks.controller.js";
 import { validateSchema } from "../middlewares/validator.middleware.js";
 import { createTaskSchema } from "../schemas/task.schema.js";
@@ -19,7 +19,7 @@ router.post(
   validateSchema(createTaskSchema),
   createTask
 );
-router.delete("/tasks/:id", authRequired, deteleTask);
+router.delete("/tasks/:id", authRequired, deleteTask);
 router.put("/tasks/:id", authRequired, updateTask);
 
 export default router;
