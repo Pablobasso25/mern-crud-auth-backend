@@ -58,6 +58,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    Cookies.remove("token");
+    setIsAuthenticated(false);
+    setUser(null);
+  };
+
   // Timer para limpiar mensajes de error automáticamente
   useEffect(() => {
     if (errors.length > 0) {
@@ -113,6 +119,7 @@ export const AuthProvider = ({ children }) => {
         user,
         isAuthenticated,
         errors,
+        logout,
       }}
     >
       {children}

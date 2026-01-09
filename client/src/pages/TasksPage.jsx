@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useTasks } from "../context/TasksContext";
+import TaskCard from "../components/TaskCard";
 
 const TasksPage = () => {
   const { getTasks, tasks } = useTasks();
@@ -13,12 +14,9 @@ const TasksPage = () => {
 
   //le indico que quiero recorrer las tareas y por cada recorrido me muestre la lista de tareas que tiene cada usuario
   return (
-    <div>
+    <div className="grid grid-cols-3 gap-1">
       {tasks.map((task) => (
-        <div key={task._id}>
-          <h1>{task.title}</h1>
-          <p>{task.description}</p>
-        </div>
+        <TaskCard task={task} key={task._id} />
       ))}
     </div>
   );
