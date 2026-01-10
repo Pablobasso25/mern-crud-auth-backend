@@ -17,7 +17,6 @@ const TaskFormPage = () => {
     async function loadTask() {
       if (params.id) {
         const task = await getTask(params.id);
-        console.log(task);
         setValue("title", task.title);
         setValue("description", task.description);
         setValue("date", dayjs(task.date).utc().format("YYYY-MM-DD"));

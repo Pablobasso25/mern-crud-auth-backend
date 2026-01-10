@@ -37,9 +37,12 @@ export const TaskProvider = ({ children }) => {
   const deleteTask = async (id) => {
     try {
       const res = await deleteTasksRequest(id);
-      if (res.status === 204) setTasks(tasks.filter((task) => task._id !== id));
+      // Si el backend responde con éxito ( código 204 No Content)
+      if (res.status === 204) {
+        setTasks(tasks.filter((task) => task._id !== id));
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Error al borrar la tarea:", error);
     }
   };
 
