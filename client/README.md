@@ -37,12 +37,12 @@ Clona el repositorio y entra en la carpeta:
 ````bash
 git clone [https://github.com/Pablobasso25/mern-crud-auth-backend.git](https://github.com/Pablobasso25/mern-crud-auth-backend.git)
 cd mern-crud-auth-backend
-
+```
 ### 3. Configuración del Backend
 Instala las dependencias y configura las variables de entorno:
 ```bash
 npm install
-
+```
 Crea un archivo .env en la raíz con:
 PORT=4000
 MONGODB_URI=tu_conexion_mongodb
@@ -53,17 +53,17 @@ Instala las dependencias del cliente:
 ```bash
 cd client
 npm install
-
+```
 ## Ejecución
 
 Para iniciar el proyecto en modo desarrollo, abre dos terminales:
 ```bash
 npm run dev
-
+```
 ```bash
 cd client
 npm run dev
-
+```
 ## Futuras Mejoras
 Actualmente el proyecto está en una fase funcional, pero planeo implementar:
 
