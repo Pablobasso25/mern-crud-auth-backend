@@ -14,7 +14,7 @@ const TasksPage = () => {
 
   //le indico que quiero recorrer las tareas y por cada recorrido me muestre la lista de tareas que tiene cada usuario
   return (
-    <div className="grid grid-cols-3 gap-1">
+    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-1">
       {tasks.map((task) => (
         <TaskCard task={task} key={task._id} />
       ))}

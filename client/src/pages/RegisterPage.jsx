@@ -34,7 +34,7 @@ const RegisterPage = () => {
           </div>
         ))}
 
-        <h1 className="text-2xl font-bold my-2 text-white">Registro</h1>
+        <h1 className="text-2xl font-bold my-2 text-white">Register</h1>
 
         <form onSubmit={onSubmit}>
           <input
