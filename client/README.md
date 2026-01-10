@@ -34,10 +34,9 @@ Una aplicación Full-Stack robusta para la gestión de tareas personales, constr
 
 Clona el repositorio y entra en la carpeta:
 
-````bash
-git clone [https://github.com/Pablobasso25/mern-crud-auth-backend.git](https://github.com/Pablobasso25/mern-crud-auth-backend.git)
+git clone https://github.com/Pablobasso25/mern-crud-auth-backend.git
 cd mern-crud-auth-backend
-```
+
 ### 3. Configuración del Backend
 Instala las dependencias y configura las variables de entorno:
 ```bash
@@ -63,7 +62,7 @@ npm run dev
 ```bash
 cd client
 npm run dev
-```
+````
 ## Futuras Mejoras
 Actualmente el proyecto está en una fase funcional, pero planeo implementar:
 
@@ -94,4 +93,3 @@ Abre un Pull Request explicando tus cambios.
 Distribuido bajo la licencia MIT. Ve LICENSE para más información.
 
 # Creado  por Pablo Basso
-````
