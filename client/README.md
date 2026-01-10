@@ -1,16 +1,97 @@
-# React + Vite
+# MERN Tasks Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación Full-Stack robusta para la gestión de tareas personales, construida con el stack **MERN**. El sistema permite a los usuarios registrarse, iniciar sesión de forma segura y gestionar su propio listado de tareas con persistencia de datos.
 
-Currently, two official plugins are available:
+## Características Principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Autenticación Segura**: Implementación de **JWT** (JSON Web Tokens) almacenados en **Cookies** para una sesión persistente y protegida.
+- **Gestión de Tareas (CRUD)**: Los usuarios pueden crear, visualizar, editar y eliminar sus tareas de forma privada.
+- **Rutas Protegidas**: Middleware en el frontend que impide el acceso a `/tasks` a usuarios no autenticados.
+- **Validación de Esquemas**: Uso de **Zod** en el backend para validar la integridad de los datos recibidos.
+- **Manejo de Formularios**: Integración de **React Hook Form** para una captura de datos eficiente y validaciones en tiempo real en el cliente.
+- **Diseño Moderno**: Interfaz construida con **Tailwind CSS v4** con modo oscuro integrado.
 
-## React Compiler
+## Tecnologías
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Frontend             | Backend                |
+| :------------------- | :--------------------- |
+| **React** (Vite)     | **Node.js**            |
+| **Context API**      | **Express**            |
+| **React Router Dom** | **MongoDB & Mongoose** |
+| **Axios**            | **JSON Web Token**     |
+| **Tailwind CSS**     | **Zod**                |
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Instalación
+
+### 1. Requisitos previos
+
+- Node.js instalado.
+- Base de datos MongoDB (Local o Atlas).
+
+### 2. Configuración del Proyecto
+
+Clona el repositorio y entra en la carpeta:
+
+````bash
+git clone [https://github.com/Pablobasso25/mern-crud-auth-backend.git](https://github.com/Pablobasso25/mern-crud-auth-backend.git)
+cd mern-crud-auth-backend
+
+### 3. Configuración del Backend
+Instala las dependencias y configura las variables de entorno:
+```bash
+npm install
+
+Crea un archivo .env en la raíz con:
+PORT=4000
+MONGODB_URI=tu_conexion_mongodb
+TOKEN_SECRET=tu_secreto_para_jwt
+
+### 4. Configuración del Frontend
+Instala las dependencias del cliente:
+```bash
+cd client
+npm install
+
+## Ejecución
+
+Para iniciar el proyecto en modo desarrollo, abre dos terminales:
+```bash
+npm run dev
+
+```bash
+cd client
+npm run dev
+
+## Futuras Mejoras
+Actualmente el proyecto está en una fase funcional, pero planeo implementar:
+
+[ ] Subida de Archivos: Permitir adjuntar imágenes o documentos a las tareas.
+
+[ ] Buscador y Filtros: Filtrar tareas por título, fecha de creación o estado (completada/pendiente).
+
+[ ] Notificaciones: Avisos mediante Toasts cuando una tarea se crea o elimina con éxito.
+
+[ ] Perfil de Usuario: Opción para que el usuario cambie su avatar y contraseña.
+
+[ ] Modo Offline: Sincronización básica para trabajar sin conexión.
+
+## Cómo Colaborar
+¡Las contribuciones son bienvenidas! Si quieres mejorar el proyecto, sigue estos pasos:
+
+Haz un Fork del proyecto.
+
+Crea una nueva rama para tu funcionalidad (git checkout -b feature/NuevaMejora).
+
+Realiza tus cambios y haz un commit descriptivo (git commit -m 'Add: nueva funcionalidad').
+
+Sube tus cambios a tu repositorio (git push origin feature/NuevaMejora).
+
+Abre un Pull Request explicando tus cambios.
+
+## Licencia
+Distribuido bajo la licencia MIT. Ve LICENSE para más información.
+
+# Creado  por Pablo Basso
+````
