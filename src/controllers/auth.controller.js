@@ -36,7 +36,11 @@ export const register = async (req, res) => {
     // envío el token como cookie al cliente
     // las cookies permiten almacenar datos en el navegador del usuario, como tokens de sesión
     // sirven para mantener la autenticación sin necesidad de enviar el token en cada petición manualmente
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true, // Protege contra ataques XSS
+      secure: true, // Obligatorio para enviar cookies por HTTPS (Render)
+      sameSite: "none", // Permite enviar la cookie entre dominios distintos (Netlify <-> Render)
+    });
 
     // respondo con los datos del usuario (sin la contraseña)
     res.json({
@@ -73,7 +77,11 @@ export const login = async (req, res) => {
     // envío el token como cookie al cliente
     // las cookies permiten almacenar datos en el navegador del usuario, como tokens de sesión
     // sirven para mantener la autenticación sin necesidad de enviar el token en cada petición manualmente
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true, // Protege contra ataques XSS
+      secure: true, // Obligatorio para enviar cookies por HTTPS (Render)
+      sameSite: "none", // Permite enviar la cookie entre dominios distintos (Netlify <-> Render)
+    });
 
     // respondo con los datos del usuario (sin la contraseña)
     res.json({
@@ -95,6 +103,9 @@ export const logout = (req, res) => {
   // esto "cierra la sesión" eliminando el token del navegador del usuario
   res.cookie("token", "", {
     expires: new Date(0),
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
   });
   // respondo con status 200 (OK) sin contenido
   return res.sendStatus(200);

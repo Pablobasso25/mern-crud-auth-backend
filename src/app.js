@@ -17,10 +17,25 @@ import taskRoutes from "./routes/tasks.routes.js";
 // app es el servidor
 const app = express();
 
-app.use(cors({
-    origin: 'http://localhost:5173', // La URL del frontend
-    credentials: true
-}));
+// Agregamos una lista de orígenes permitidos
+const whiteList = [
+  "http://localhost:5173", // URL por defecto de Vite
+  "https://mern-crud-auth-backend.netlify.app" // URL de Netlify
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Permitimos peticiones sin origen (como Postman o Server-to-Server) 
+      if (!origin || whiteList.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("No permitido por CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 // esta configuración muestra un mensaje corto por consola cada vez que se hace una petición HTTP
 // "dev" es el formato que usa morgan (muestra: método, url, status, tiempo de respuesta)
 app.use(morgan("dev"));
