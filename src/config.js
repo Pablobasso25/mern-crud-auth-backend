@@ -16,5 +16,7 @@ import { config } from "dotenv";
 config(); // Esto asegura que las variables se carguen ANTES de exportarlas
 
 export const PORT = process.env.PORT || 4006;
-export const MONGODB_URI = process.env.MONGODB_URI;
+export const MONGODB_URI =
+  process.env.MONGODB_URI ||
+  "mongodb+srv://pablobasso25_db:Pablobasso25@pablomongodb.guo2nmn.mongodb.net/merndb?retryWrites=true&w=majority";
 export const TOKEN_SECRET = process.env.TOKEN_SECRET || "secret123";
