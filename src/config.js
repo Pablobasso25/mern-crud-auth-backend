@@ -1,4 +1,4 @@
-// Exporto la variable PORT que obtiene su valor de process.env.PORT (del archivo .env)
+/* // Exporto la variable PORT que obtiene su valor de process.env.PORT (del archivo .env)
 // Si no existe en .env, usa el valor por defecto 4002 (temporal para liberar 4000)
 // Esta variable se importa en index.js para definir en qué puerto corre el servidor
 export const PORT = process.env.PORT || 4002;
@@ -10,4 +10,12 @@ export const PORT = process.env.PORT || 4002;
 export const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost/merndb";
 
-export const TOKEN_SECRET = process.env.TOKEN_SECRET || "secret123";
+export const TOKEN_SECRET = process.env.TOKEN_SECRET || "secret123"; */
+// config.js
+import "dotenv/config";
+
+// En Render, process.env.MONGODB_URI tendrá el valor de la nube
+// En tu PC, usará el del archivo .env local
+export const MONGODB_URI = process.env.MONGODB_URI;
+export const PORT = process.env.PORT || 4006;
+export const TOKEN_SECRET = process.env.TOKEN_SECRET;

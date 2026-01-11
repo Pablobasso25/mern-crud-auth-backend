@@ -29,16 +29,19 @@ import { MONGODB_URI } from "./config.js";
 }; */
 export const connectDB = async () => {
   try {
-    // Forzamos la lectura de la variable de entorno
-    const mongoURI = process.env.MONGODB_URI;
-    
-    if (!mongoURI) {
-      throw new Error("La variable MONGODB_URI no está definida en el entorno");
+    // Verificamos que la URI exista antes de intentar conectar
+    if (!MONGODB_URI) {
+      throw new Error(
+        "La variable MONGODB_URI no está llegando desde config.js"
+      );
     }
 
-    await mongoose.connect(mongoURI);
+    // Usamos la variable importada
+    await mongoose.connect(MONGODB_URI);
+
     console.log(">>> DB is connected to Atlas");
   } catch (error) {
+    // Si falla, el log nos dirá exactamente por qué (ej: error de contraseña)
     console.error("Error connecting to DB:", error.message);
   }
 };
