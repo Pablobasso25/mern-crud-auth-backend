@@ -66,15 +66,11 @@ npm run dev
 ## Futuras Mejoras
 Actualmente el proyecto está en una fase funcional, pero planeo implementar:
 
-[ ] Subida de Archivos: Permitir adjuntar imágenes o documentos a las tareas.
-
-[ ] Buscador y Filtros: Filtrar tareas por título, fecha de creación o estado (completada/pendiente).
-
-[ ] Notificaciones: Avisos mediante Toasts cuando una tarea se crea o elimina con éxito.
-
-[ ] Perfil de Usuario: Opción para que el usuario cambie su avatar y contraseña.
-
-[ ] Modo Offline: Sincronización básica para trabajar sin conexión.
+- [ ] **Subida de Archivos**: Permitir adjuntar imágenes o documentos a las tareas.
+- [ ] **Buscador y Filtros**: Filtrar tareas por título, fecha de creación o estado (completada/pendiente).
+- [ ] **Notificaciones**: Avisos mediante Toasts cuando una tarea se crea o elimina con éxito.
+- [ ] **Perfil de Usuario**: Opción para que el usuario cambie su avatar y contraseña.
+- [ ] **Modo Offline**: Sincronización básica para trabajar sin conexión.
 
 ## Cómo Colaborar
 ¡Las contribuciones son bienvenidas! Si quieres mejorar el proyecto, sigue estos pasos:
