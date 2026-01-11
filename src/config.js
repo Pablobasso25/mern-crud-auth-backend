@@ -12,10 +12,9 @@ export const MONGODB_URI =
 
 export const TOKEN_SECRET = process.env.TOKEN_SECRET || "secret123"; */
 // config.js
-import "dotenv/config";
+import { config } from "dotenv";
+config(); // Esto asegura que las variables se carguen ANTES de exportarlas
 
-// En Render, process.env.MONGODB_URI tendrá el valor de la nube
-// En tu PC, usará el del archivo .env local
-export const MONGODB_URI = process.env.MONGODB_URI;
 export const PORT = process.env.PORT || 4006;
-export const TOKEN_SECRET = process.env.TOKEN_SECRET;
+export const MONGODB_URI = process.env.MONGODB_URI;
+export const TOKEN_SECRET = process.env.TOKEN_SECRET || "secret123";
