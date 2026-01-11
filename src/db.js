@@ -17,7 +17,7 @@ import { MONGODB_URI } from "./config.js";
     console.log(error);
   }
 }; */
-export const connectDB = async () => {
+/* export const connectDB = async () => {
   try {
     // Usamos process.env directamente para asegurar que tome la de Render
     const uri = process.env.MONGODB_URI || MONGODB_URI;
@@ -25,5 +25,20 @@ export const connectDB = async () => {
     console.log(">>> DB is connected");
   } catch (error) {
     console.log("Error de conexión a la DB:", error);
+  }
+}; */
+export const connectDB = async () => {
+  try {
+    // Forzamos la lectura de la variable de entorno
+    const mongoURI = process.env.MONGODB_URI;
+    
+    if (!mongoURI) {
+      throw new Error("La variable MONGODB_URI no está definida en el entorno");
+    }
+
+    await mongoose.connect(mongoURI);
+    console.log(">>> DB is connected to Atlas");
+  } catch (error) {
+    console.error("Error connecting to DB:", error.message);
   }
 };
