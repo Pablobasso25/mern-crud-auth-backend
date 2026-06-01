@@ -11,7 +11,7 @@ export const connectDB = async () => {
     // Verificamos que la URI exista antes de intentar conectar
     if (!MONGODB_URI) {
       throw new Error(
-        "La variable MONGODB_URI no está llegando desde config.js"
+        "La variable MONGODB_URI no está llegando desde config.js",
       );
     }
 

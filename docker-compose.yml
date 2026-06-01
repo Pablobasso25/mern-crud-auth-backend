@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  # 2. SERVICIO BACKEND
+  backend:
+    build:
+      context: . # La carpeta donde está el Dockerfile
+      target: development # ¡Le decimos a Docker que use solo la etapa de desarrollo!
+    container_name: mern-backend
+    ports:
+      - "4006:4006"
+    env_file:
+      - .env
+    volumes:
+      # Sincroniza esta carpeta (.) con la carpeta /app del contenedor
+      - .:/app
+      # "Protege" la carpeta node_modules del contenedor para que tu PC no la borre/pise
+      - /app/node_modules
+
+  # 3. SERVICIO FRONTEND
+  frontend:
+    build:
+      context: ./client # La carpeta donde está el Dockerfile del frontend
+      target: development # Usamos la etapa de desarrollo
+    container_name: mern-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    volumes:
+      - ./client:/app
+      - /app/node_modules

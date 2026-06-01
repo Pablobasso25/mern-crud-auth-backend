@@ -1,0 +1,9 @@
+# Ignorar dependencias
+node_modules/
+npm-debug.log
+dist/
+
+# Ignorar secretos y control de versiones
+.env
+.git/
+.gitignore

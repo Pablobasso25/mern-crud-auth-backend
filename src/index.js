@@ -6,7 +6,6 @@ import { connectDB } from "./db.js";
 import { PORT } from "./config.js";
 
 // Primero me conecto a la base de datos antes de iniciar el servidor
-// Esta función es asíncrona pero no espero su resultado (fire and forget)
 connectDB();
 
 // Le digo a Express que escuche peticiones HTTP en el puerto especificado (4000)
